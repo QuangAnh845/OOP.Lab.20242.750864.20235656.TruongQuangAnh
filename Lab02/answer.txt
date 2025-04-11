@@ -1,0 +1,56 @@
+Tổng hợp các kiến thức liên quan đến constructor, truyền tham số và tham chiếu trong Java
+
+1. Về constructor trùng chữ ký trong Java: 
+Java không cho phép định nghĩa hai constructor có cùng số lượng và kiểu tham số, dù tên tham số khác nhau. 
+Ví dụ, nếu bạn tạo một constructor nhận tham số title và một constructor khác nhận lentgh, cả hai đều có kiểu String và chỉ có một tham số, thì Java sẽ không phân biệt được và báo lỗi "duplicate constructor" khi biên dịch. 
+Cụ thể, hai constructor như sau sẽ gây lỗi: 
+
+DigitalVideoDisc(String title) 
+
+DigitalVideoDisc(String length) 
+
+
+Java chỉ xét số lượng và kiểu tham số để phân biệt giữa các phương thức nạp chồng (overloading), chứ không dựa vào tên tham số. 
+
+2. Tại sao gọi swap(jungleDVD, cinderellaDVD) mà tiêu đề không đổi? 
+
+public static void swap(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) { 
+
+    DigitalVideoDisc temp = dvd1; 
+
+    dvd1 = dvd2; 
+
+    dvd2 = temp; 
+
+} 
+
+Ở đây, dvd1 và dvd2 chỉ là bản sao của tham chiếu ban đầu (jungleDVD và cinderellaDVD). 
+Khi ta hoán đổi dvd1 và dvd2 trong phương thức, chỉ các bản sao bị thay đổi, còn các biến gốc ở main() không bị ảnh hưởng. 
+Vì vậy, sau khi kết thúc phương thức swap, tiêu đề của jungleDVD và cinderellaDVD bên ngoài vẫn giữ nguyên như cũ. 
+
+ 
+
+3. Tại sao tiêu đề của jungleDVD thay đổi sau khi gọi changeTitle(...)? 
+
+Khi gọi: 
+
+changeTitle(jungleDVD, cinderellaDVD.getTitle()); 
+
+Tham số dvd trong changeTitle là bản sao của tham chiếu đến jungleDVD, tức cả hai cùng trỏ đến cùng một đối tượng trong bộ nhớ. Do đó, khi thực hiện: 
+
+dvd.setTitle(title); 
+
+Ta thay đổi nội dung bên trong đối tượng mà jungleDVD đang tham chiếu, nên tiêu đề thực sự bị thay đổi. 
+
+Tuy nhiên, nếu sau đó có câu lệnh: 
+
+dvd = new DigitalVideoDisc(oldTitle); 
+
+thì dvd sẽ trỏ đến một đối tượng mới. Nhưng thay đổi này chỉ diễn ra bên trong phương thức changeTitle, không làm ảnh hưởng đến biến jungleDVD bên ngoài, vì bản sao tham chiếu ban đầu không bị thay đổi. 
+
+Tóm lại: Bạn không thể làm thay đổi tham chiếu gốc từ trong phương thức, nhưng có thể thay đổi trạng thái (dữ liệu) của đối tượng mà tham chiếu đó trỏ tới. 
+
+4. Java truyền tham trị hay tham chiếu? 
+ Java luôn truyền tham trị (pass-by-value). Tuy nhiên, khi truyền đối tượng vào phương thức, giá trị được truyền thực ra là bản sao của tham chiếu đến đối tượng đó trong bộ nhớ. Nói cách khác, tham số nhận được bên trong phương thức là một bản sao của địa chỉ tham chiếu, chứ không phải là bản thân đối tượng. 
+
+ 
