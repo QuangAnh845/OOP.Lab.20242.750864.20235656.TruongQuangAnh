@@ -1,0 +1,17 @@
+1.Question: Write a toString() method for the DigitalVideoDisc class. What should its return type be?
+Answer: The toString() method should return a value of type String.
+
+2.Question: Which classes are aggregates of others? Check if the constructors of the whole classes initialize their parts.
+Answer: The Media class serves as an aggregate for the Cart and Store classes. All constructors for these classes properly initialize their respective components.
+
+3.Question: Which class should implement the Comparable interface?
+Answer: A class should implement the Comparable interface if we want to define a natural order for its instances.
+
+4.Question: How should the compareTo() method be implemented in those classes to achieve the desired ordering?
+Answer: To implement compareTo(), we need to establish a logical and consistent comparison: return a negative number if the current object is less than the argument, zero if they are equal, and a positive number if it is greater.
+
+5.Question: Can we define two different ordering rules (e.g., by title then cost, and by cost then title) using only the Comparable interface?
+Answer: No, using the Comparable interface allows only one natural order through the compareTo() method. If multiple sorting rules are needed, the Comparator interface should be used instead.
+
+6.Question: If DVDs require a different sorting rule from other media (by title, then descending length, then cost), how can we adapt the code?
+Answer: We can override the compareTo() method specifically within the DVD class to implement a custom ordering distinct from other media types.
